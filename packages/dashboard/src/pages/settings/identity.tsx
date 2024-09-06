@@ -165,11 +165,11 @@ export default function Index() {
 												<div
 													className={"flex cursor-pointer items-center gap-3"}
 													onClick={() => {
-														void navigator.clipboard.writeText("plunk");
+														void navigator.clipboard.writeText("codelight");
 														toast.success("Copied key to clipboard");
 													}}
 												>
-													<p className={"font-mono text-sm"}>plunk</p>
+													<p className={"font-mono text-sm"}>codelight</p>
 													<Copy size={14} />
 												</div>
 											),
@@ -191,11 +191,11 @@ export default function Index() {
 												<div
 													className={"flex cursor-pointer items-center gap-3"}
 													onClick={() => {
-														void navigator.clipboard.writeText("plunk");
+														void navigator.clipboard.writeText("codelight");
 														toast.success("Copied key to clipboard");
 													}}
 												>
-													<p className={"font-mono text-sm"}>plunk</p>
+													<p className={"font-mono text-sm"}>codelight</p>
 													<Copy size={14} />
 												</div>
 											),
