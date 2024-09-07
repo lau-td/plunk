@@ -13,3 +13,13 @@ services:
     image: redis
     ports:
       - 56379:6379
+
+  plunk:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - 4000:4000
+    env_file:
+      - .env
+    

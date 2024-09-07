@@ -1,0 +1,32 @@
+# Base Stage
+FROM node:alpine AS base
+
+WORKDIR /app
+
+COPY tools/preinstall.js ./tools/preinstall.js
+COPY packages/api/package.json packages/api/
+COPY packages/shared/package.json packages/shared/
+COPY package.json yarn.lock ./
+
+RUN yarn install --network-timeout 1000000
+
+COPY . .
+
+RUN yarn build:shared
+RUN yarn workspace @plunk/api build
+
+# Final Stage
+FROM node:alpine
+
+WORKDIR /app
+
+COPY --from=base /app/packages/api/dist /app/packages/api/
+COPY --from=base /app/node_modules /app/node_modules
+COPY --from=base /app/packages/shared /app/packages/shared
+COPY --from=base /app/prisma /app/prisma
+COPY deployment/nginx.conf /etc/nginx/nginx.conf
+COPY deployment/entry.sh /app/
+
+RUN chmod +x /app/entry.sh
+
+CMD ["node", "packages/api/app.js"]
